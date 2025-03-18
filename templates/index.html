@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Healthcare Prescription Guide{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Healthcare Prescription Guide</h1>
+
+    <div class="container">
+        <form action="/predict" method="post">
+            <label for="symptomDropdown">Select Your Symptoms:</label>
+            <select id="symptomDropdown" class="form-control" multiple>
+                <option value="" disabled selected>Select a symptom</option>
+                {% for symptom in symptoms_dict.keys() %}
+                <option value="{{ symptom }}">{{ symptom }}</option>
+                {% endfor %}
+            </select>
+
+            <br>
+            <label for="symptoms">Selected Symptoms:</label>
+            <input type="text" class="form-control" id="symptoms" name="symptoms" readonly placeholder="Selected symptoms will appear here">
+            <br>
+
+            <button type="button" id="startSpeechRecognition">
+                🎙 Start Speech Recognition
+            </button>
+            <br>
+            <div id="transcription"></div>
+
+            {% if message %}
+            <p>{{ message }}</p>
+            {% endif %}
+
+            <br>
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+
+    {% if predicted_disease %}
+    <h1>The Result Declared By Our AI System</h1>
+    <h6>This is just AI-powered disease prediction. You must consult a healthcare professional.</h6>
+
+    <div class="result-container">
+        <button class="toggle-button" data-bs-toggle="modal" data-bs-target="#diseaseModal">Disease</button>
+        <button class="toggle-button" data-bs-toggle="modal" data-bs-target="#descriptionModal">Description</button>
+        <button class="toggle-button" data-bs-toggle="modal" data-bs-target="#precautionModal">Precaution</button>
+        <button class="toggle-button" data-bs-toggle="modal" data-bs-target="#medicationsModal">Medications</button>
+        <button class="toggle-button" data-bs-toggle="modal" data-bs-target="#workoutsModal">Workouts</button>
+        <button class="toggle-button" data-bs-toggle="modal" data-bs-target="#dietsModal">Diets</button>
+    </div>
+    {% endif %}
+
+    <!-- Modals for Disease Details -->
+    {% for modal_id, title, content in [
+        ('diseaseModal', 'Predicted Disease', predicted_disease),
+        ('descriptionModal', 'Description', dis_des),
+        ('precautionModal', 'Precaution', my_precautions),
+        ('medicationsModal', 'Medications', medications),
+        ('workoutsModal', 'Workouts', workout),
+        ('dietsModal', 'Diets', my_diet)
+    ] %}
+    <div class="modal fade" id="{{ modal_id }}" tabindex="-1" aria-labelledby="{{ modal_id }}Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #020606; color:blue;">
+                    <h5 class="modal-title" id="{{ modal_id }}Label">{{ title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="background-color: #000000;">
+                    {% if content is iterable and content is not string %}
+                        <ul>
+                            {% for item in content %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>{{ content }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const symptomDropdown = document.getElementById("symptomDropdown");
+        const symptomsInput = document.getElementById("symptoms");
+
+        symptomDropdown.addEventListener("change", function () {
+            let selectedSymptom = this.value;
+            let currentSymptoms = symptomsInput.value.split(", ").filter(s => s.trim() !== "");
+
+            if (!currentSymptoms.includes(selectedSymptom)) {
+                currentSymptoms.push(selectedSymptom);
+                symptomsInput.value = currentSymptoms.join(", ");
+            }
+
+            this.value = ""; // Reset dropdown after selection
+        });
+    });
+
+    function updateSelection() {
+        let dropdown = document.getElementById("symptomDropdown");
+        let selectedSymptoms = document.getElementById("selectedSymptoms");
+        let selectedValues = Array.from(dropdown.selectedOptions).map(option => option.value);
+        selectedSymptoms.value = selectedValues.join(", ");
+    }
+
+    document.getElementById("symptomDropdown").addEventListener("change", updateSelection);
+
+    const startSpeechRecognitionButton = document.getElementById('startSpeechRecognition');
+    const transcriptionDiv = document.getElementById('transcription');
+
+    startSpeechRecognitionButton.addEventListener('click', function() {
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'en-US';
+        recognition.onresult = function(event) {
+            let result = event.results[0][0].transcript;
+            transcriptionDiv.textContent = result;
+
+            let dropdown = document.getElementById("symptomDropdown");
+            let selectedSymptoms = document.getElementById("selectedSymptoms");
+
+            // Try to match spoken words to dropdown options
+            let words = result.split(" ");
+            let foundSymptoms = [];
+            for (let option of dropdown.options) {
+                if (words.includes(option.value.toLowerCase())) {
+                    option.selected = true;
+                    foundSymptoms.push(option.value);
+                }
+            }
+            selectedSymptoms.value = foundSymptoms.join(", ");
+        };
+        recognition.start();
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,207 @@
+/* logo image */
+.logo {
+    width: 50px;
+    height: 50px;
+    color: black;
+    margin-top: 0;
+    margin-left: 2px;
+}
+
+/* image */
+.myimg {
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 25px;
+}
+
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #141e30, #243b55); /* Dark blue gradient */
+    color: white;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+
+/* Center the main container */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* Header Styling */
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Form Styling */
+form {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    width: 50%;
+    min-width: 300px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+}
+
+form input,
+form button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+form input {
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
+}
+
+form button {
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+form button:hover {
+    background: linear-gradient(to right, #ff6b6b, #ffb142);
+}
+
+/* Result Section */
+.result-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Buttons for Result */
+.toggle-button {
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    width: 180px;
+    border-radius: 8px;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.toggle-button:hover {
+    transform: scale(1.05);
+}
+
+.toggle-button:nth-child(1) { background: #ff7675; }
+.toggle-button:nth-child(2) { background: #74b9ff; }
+.toggle-button:nth-child(3) { background: #a29bfe; }
+.toggle-button:nth-child(4) { background: #ff7675; }
+.toggle-button:nth-child(5) { background: #55efc4; }
+.toggle-button:nth-child(6) { background: #fdcb6e; }
+
+/* About and Contact Page Styling */
+.page-content {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    width: 60%;
+    min-width: 320px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+}
+
+.page-content h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ffb142;
+}
+
+/* Modal Styles */
+.modal-content {
+    background: rgba(0, 0, 0, 0.8); /* Dark translucent effect */
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Modal Header */
+.modal-header {
+    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Nice gradient header */
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    text-align: center;
+}
+
+/* Close Button */
+.modal-header .btn-close {
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+.modal-header .btn-close:hover {
+    opacity: 1;
+}
+
+/* Modal Body */
+.modal-body {
+    background: rgba(255, 255, 255, 0.1); /* Slightly translucent */
+    padding: 20px;
+    font-size: 1.1rem;
+    text-align: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* List inside modals */
+.modal-body ul {
+    list-style: none;
+    padding: 0;
+}
+
+.modal-body ul li {
+    background: rgba(255, 255, 255, 0.2);
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Modal Animation */
+.modal.fade .modal-dialog {
+    transform: translateY(-20px);
+    transition: all 0.3s ease-in-out;
+}
+
+.modal.show .modal-dialog {
+    transform: translateY(0);
+}
+
+
+/* Footer */
+
+.footer {
+
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.55);
+    text-align: center;
+    font-size: 1rem;
+
+}
