@@ -1,6 +1,6 @@
 # Healthcare-Prescription-Guide
 
-Welcome to our cutting-edge Personalized Healthcare-Prescription-Guide, a powerful platform designed to assist users in understanding and managing their health. Leveraging the capabilities of machine learning, our system analyzes user-input symptoms to predict potential diseases accurately. Here's what sets our system apart:
+Welcome to our cutting-edge Personalized Healthcare-Prescription-Guide, a powerful platform designed to assist users in understanding and managing their health. Leveraging the capabilities of machine learning using Python, our system analyzes user-input symptoms to predict potential diseases accurately. Flask framework of Python is used for web deployment part. Here's what sets our system apart:
 
 - User-Friendly Interface: Our intuitive interface allows users to input their symptoms effortlessly, creating a seamless user experience.
 
